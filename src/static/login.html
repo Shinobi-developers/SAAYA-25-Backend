@@ -51,21 +51,25 @@
         justify-content: center;
         align-items: center;
     }
-    .input-group{
+
+    .input-group {
         display: flex;
         gap: 1rem;
         margin-top: 1rem;
         justify-content: end;
     }
-    .input-group input{
+
+    .input-group input {
         height: 1.5rem;
     }
-    .input-group label{
+
+    .input-group label {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .login-btn-container{
+
+    .login-btn-container {
         width: 100%;
         display: flex;
         justify-content: center;
@@ -73,7 +77,8 @@
         padding-bottom: 1rem;
         padding-top: 2rem;
     }
-    .login-btn-container button{
+
+    .login-btn-container button {
         width: 90%;
         font-size: 1rem;
         padding-block: 0.5rem;
@@ -85,32 +90,33 @@
 
 <script>
     document.getElementById('loginForm').addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent default form submission
+        event.preventDefault();
 
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         const errorMessage = document.getElementById('errorMessage');
 
-        // Clear previous error message
         errorMessage.textContent = "";
 
         // Send login data to backend
-        fetch('/login', {
+        fetch('/user/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
         })
             .then(response => response.json())
             .then(data => {
-                if (data.status === 'OK') {
-                    // Redirect to dashboard on success
+                if (data.token) {
+                    const expiryDate = new Date();
+                    expiryDate.setMinutes(expiryDate.getMinutes() + 30);
+                    document.cookie = `token=${data.token}; expires=${expiryDate.toUTCString()}; path=/`;
                     window.location.href = '/dashboard';
                 } else {
                     errorMessage.textContent = data.message;
                 }
             })
             .catch(error => {
-                errorMessage.textContent = "Something went wrong, please try again.";
+                errorMessage.textContent = "Invalid credentials";
             });
     });
 
