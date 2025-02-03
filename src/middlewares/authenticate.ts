@@ -1,20 +1,24 @@
 import jwt from 'jsonwebtoken';
-import { Request, Response, NextFunction } from 'express';
+import { Request } from 'express';
 
-const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.headers.authorization;
-  const token = authHeader && authHeader.split(' ')[1];
-  if (!token) {
-    res.status(401).json({ message: 'Not authorized' });
+const authenticateJWT = (req: Request) => {
+  try {
+    const authHeader = req.headers.cookie;
+    const token = authHeader && authHeader.split('=')[1];
+    if (!token) {
+      return false;
+    }
+    const secretKey = process.env.JWT_SECRET_KEY;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    const decoded = jwt.verify(token, secretKey);
+    if (decoded) {
+      return true;
+    }
+    return false;
+  } catch {
+    return false;
   }
-  const secretKey = process.env.JWT_SECRET_KEY;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
-  const decoded = jwt.verify(token, secretKey);
-  if (!decoded) {
-    res.status(403).json({ message: 'Forbidden' });
-  }
-  next();
 };
 
 export default authenticateJWT;

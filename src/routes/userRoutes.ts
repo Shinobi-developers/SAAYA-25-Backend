@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { randomBytes } from 'crypto';
+import authenticateJWT from '../middlewares/authenticate';
 
 const router = express.Router();
 
@@ -14,6 +15,10 @@ router.use('/user', express.static(path.join(__dirname, '../static')));
 
 // Send login page
 router.get('/page/login', (req: Request, res: Response): void => {
+  const isAuthenticated = authenticateJWT(req);
+  if (isAuthenticated) {
+    return res.redirect('/event/page/add-point');
+  }
   const filePath = path.join(__dirname, '../static/login.html');
   const fixedPath = filePath.replace(/^\\/, '');
   res.sendFile(fixedPath, (err) => {

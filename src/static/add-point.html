@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Point</title>
+</head>
+
+<style>
+    .add-point-page-container {
+        width: 100%;
+    }
+
+    .add-point-header {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .add-point-header p {
+        font-size: 2.5rem;
+        font-weight: 600;
+    }
+
+    .add-point-header-2 {
+        width: 100%;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    .add-point-header-2 p {
+        padding-left: 3rem;
+    }
+
+    .event-name-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .event-name-container label {
+        font-weight: 600;
+    }
+
+    .event-name-container input {
+        height: 1.5rem;
+        width: 20%;
+        font-size: 1.2rem;
+    }
+
+    .winners-details {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-block: 1.5rem;
+    }
+
+    .winner-details {
+        width: 100%;
+        display: flex;
+        gap: 2rem;
+    }
+
+    .winner-place p {
+        margin: 0;
+        padding-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .winner-detail label {
+        font-size: 1.1rem;
+    }
+
+    .winner {
+        padding-top: 1rem;
+    }
+
+    .submit-btn-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-block: 2rem;
+    }
+
+    .submit-btn-container button {
+        padding-inline: 2rem;
+        padding-block: 0.5rem;
+        font-size: 1.2rem;
+    }
+
+    #msg-box {
+        padding-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .add-point-header-2 p {
+            padding: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .event-name-container input {
+            width: 80%;
+        }
+
+        .winner-details {
+            flex-direction: column;
+        }
+
+        .winner {
+            width: 90%;
+            padding-top: 5rem;
+        }
+    }
+</style>
+
+<body>
+
+    <div class="add-point-page-container">
+        <div class="add-point-header">
+            <p>SAAYA 25</p>
+        </div>
+        <div class="add-point-header-2">
+            <p>Add points</p>
+        </div>
+        <div class="event-name-container">
+            <label for="">Event Name</label>
+            <input type="text" id="event-name" required>
+        </div>
+        <div class="winners-details">
+            <div class="winner">
+                <div class="winner-place">
+                    <p>FIRST</p>
+                </div>
+                <div class="winner-details">
+                    <div class="winner-detail">
+                        <label for="">Name</label>
+                        <input type="text" id="first-name">
+                    </div>
+                    <div class="winner-detail">
+                        <label for="">SQUAD</label>
+                        <select id="first-squad">
+                            <option value="">Select Squad</option>
+                            <option value="CSE">CSE</option>
+                            <option value="CE_AD">CE & AD</option>
+                            <option value="EEE_ECE_ME">EEE & ECE & ME</option>
+                            <option value="MCA_MTECH">MCA & MTECH</option>
+                        </select>
+                    </div>
+                    <div class="winner-detail">
+                        <label for="">SEM</label>
+                        <select id="first-sem">
+                            <option value="">Select Semester</option>
+                            <option value="S2">S2</option>
+                            <option value="S4">S4</option>
+                            <option value="S6">S6</option>
+                            <option value="S8">S8</option>
+                        </select>
+                    </div>
+                    <div class="winner-detail">
+                        <label for="">Point</label>
+                        <input type="text" id="first-point">
+                    </div>
+                </div>
+            </div>
+            <div class="winner">
+                <div class="winner-place">
+                    <p>SECOND</p>
+                </div>
+                <div class="winner-details">
+                    <div class="winner-detail">
+                        <label for="">Name</label>
+                        <input type="text" id="second-name">
+                    </div>
+                    <div class="winner-detail">
+                        <label for="">SQUAD</label>
+                        <select id="second-squad">
+                            <option value="">Select Squad</option>
+                            <option value="CSE">CSE</option>
+                            <option value="CE_AD">CE & AD</option>
+                            <option value="EEE_ECE_ME">EEE & ECE & ME</option>
+                            <option value="MCA_MTECH">MCA & MTECH</option>
+                        </select>
+                    </div>
+                    <div class="winner-detail">
+                        <label for="">SEM</label>
+                        <select id="second-sem">
+                            <option value="">Select Semester</option>
+                            <option value="S2">S2</option>
+                            <option value="S4">S4</option>
+                            <option value="S6">S6</option>
+                            <option value="S8">S8</option>
+                        </select>
+                    </div>
+                    <div class="winner-detail">
+                        <label for="">Point</label>
+                        <input type="text" id="second-point">
+                    </div>
+                </div>
+            </div>
+            <div class="winner">
+                <div class="winner-place">
+                    <p>THIRD</p>
+                </div>
+                <div class="winner-details">
+                    <div class="winner-detail">
+                        <label for="">Name</label>
+                        <input type="text" id="third-name">
+                    </div>
+                    <div class="winner-detail">
+                        <label for="">SQUAD</label>
+                        <select id="third-squad">
+                            <option value="">Select Squad</option>
+                            <option value="CSE">CSE</option>
+                            <option value="CE_AD">CE & AD</option>
+                            <option value="EEE_ECE_ME">EEE & ECE & ME</option>
+                            <option value="MCA_MTECH">MCA & MTECH</option>
+                        </select>
+                    </div>
+                    <div class="winner-detail">
+                        <label for="">SEM</label>
+                        <select id="third-sem">
+                            <option value="">Select Semester</option>
+                            <option value="S2">S2</option>
+                            <option value="S4">S4</option>
+                            <option value="S6">S6</option>
+                            <option value="S8">S8</option>
+                        </select>
+                    </div>
+                    <div class="winner-detail">
+                        <label for="">Point</label>
+                        <input type="text" id="third-point">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="submit-btn-container">
+            <button type="submit" onclick="sumbit()">Submit</button>
+            <div id="msg-box"></div>
+        </div>
+    </div>
+
+
+    <script>
+        const sumbit = () => {
+            const eventName = document.getElementById("event-name").value
+            const firstName = document.getElementById("first-name").value
+            const firstSquad = document.getElementById("first-squad").value
+            const firstSem = document.getElementById("first-sem").value
+            const firstPoint = document.getElementById("first-point").value
+            const secondName = document.getElementById("second-name").value
+            const secondSquad = document.getElementById("second-squad").value
+            const secondSem = document.getElementById("second-sem").value
+            const secondPoint = document.getElementById("second-point").value
+            const thirdName = document.getElementById("third-name").value
+            const thirdSquad = document.getElementById("third-squad").value
+            const thirdSem = document.getElementById("third-sem").value
+            const thirdPoint = document.getElementById("third-point").value
+
+            const messageBox = document.getElementById("msg-box");
+            messageBox.textContent = "";
+
+            const value = `; ${document.cookie}`;
+            const parts = value.split("; token=");
+            const token = (parts.length === 2) ? parts.pop().split(';').shift() : null;
+
+            if (!eventName.trim()) {
+                alert("Event name is mandatory");
+                return;
+            }
+            if (!firstName.trim()) {
+                alert("Name of first is mandatory");
+                return;
+            }
+            if (!firstSquad.trim()) {
+                alert("Squad of first is mandatory");
+                return;
+            }
+            if (!firstSem.trim()) {
+                alert("Semester of first is mandatory");
+                return;
+            }
+            if (!firstPoint.trim() || isNaN(Number(firstPoint)) || Number(firstPoint) == 0) {
+                alert("Point of first is mandatory");
+                return;
+            }
+            if (!secondName.trim()) {
+                alert("Name of second is mandatory");
+                return;
+            }
+            if (!secondSquad.trim()) {
+                alert("Squad of second is mandatory");
+                return;
+            }
+            if (!secondSem.trim()) {
+                alert("Semester of second is mandatory");
+                return;
+            }
+            if (!secondPoint.trim() || isNaN(Number(secondPoint)) || Number(secondPoint) == 0) {
+                alert("Point of second is mandatory");
+                return;
+            }
+            if (!thirdName.trim()) {
+                alert("Name of third is mandatory");
+                return;
+            }
+            if (!thirdSquad.trim()) {
+                alert("Squad of third is mandatory");
+                return;
+            }
+            if (!thirdSem.trim()) {
+                alert("Semester of third is mandatory");
+                return;
+            }
+            if (!thirdPoint.trim() || isNaN(Number(thirdPoint)) || Number(thirdPoint) == 0) {
+                alert("Point of third is mandatory");
+                return;
+            }
+            const inputs = {
+                eventName,
+                first: {
+                    name: firstName,
+                    squad: firstSquad,
+                    sem: firstSem,
+                    point: Number(firstPoint),
+                },
+                second: {
+                    name: secondName,
+                    squad: secondSquad,
+                    sem: secondSem,
+                    point: Number(secondPoint),
+                },
+                third: {
+                    name: thirdName,
+                    squad: thirdSquad,
+                    sem: thirdSem,
+                    point: Number(thirdPoint),
+                }
+            }
+            console.log(inputs)
+            fetch('/event/add-point', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(inputs)
+            })
+                .then(response => {
+                    messageBox.style.color = 'green';
+                    messageBox.textContent = 'Points added successfully!!';
+                })
+                .catch(error => {
+                    messageBox.style.color = 'red';
+                    messageBox.textContent = 'Something went wrong';
+                });
+        }
+    </script>
+
+</body>
+
+</html>
