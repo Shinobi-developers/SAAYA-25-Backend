@@ -4,21 +4,17 @@ const participantSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
     },
     squad: {
       type: String,
-      required: true,
-      enum: ['CSE', 'CE_AD', 'EEE_ECE_ME', 'MCA_MTECH'],
+      enum: ['CSE', 'CE_AD', 'EEE_ECE_ME', 'MCA_MTECH', ''],
     },
     sem: {
       type: String,
-      required: true,
-      enum: ['S2', 'S4', 'S6', 'S8'],
+      enum: ['S2', 'S4', 'S6', 'S8', ''],
     },
     point: {
       type: Number,
-      required: true,
     },
   },
   { _id: false },

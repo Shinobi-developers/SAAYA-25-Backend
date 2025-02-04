@@ -73,8 +73,14 @@
 
     .winner-place p {
         margin: 0;
-        padding-bottom: 1rem;
         font-weight: 600;
+    }
+
+    .winner-place {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        padding-bottom: 0.5rem;
     }
 
     .winner-detail label {
@@ -102,14 +108,16 @@
     #msg-box {
         padding-top: 1rem;
     }
-    .event-type-container{
+
+    .event-type-container {
         display: flex;
         justify-content: center;
         align-items: center;
         padding-top: 2rem;
         gap: 0.5rem;
     }
-    .event-type-container label{
+
+    .event-type-container label {
         font-weight: 600;
     }
 
@@ -195,9 +203,10 @@
             </div>
             <div class="winner">
                 <div class="winner-place">
+                    <input type="checkbox" id="is-second" checked>
                     <p>SECOND</p>
                 </div>
-                <div class="winner-details">
+                <div class="winner-details" id="second-details">
                     <div class="winner-detail">
                         <label for="">Name</label>
                         <input type="text" id="second-name">
@@ -230,9 +239,10 @@
             </div>
             <div class="winner">
                 <div class="winner-place">
+                    <input type="checkbox" id="is-third" checked>
                     <p>THIRD</p>
                 </div>
-                <div class="winner-details">
+                <div class="winner-details" id="third-details">
                     <div class="winner-detail">
                         <label for="">Name</label>
                         <input type="text" id="third-name">
@@ -272,6 +282,41 @@
 
 
     <script>
+
+        const secondCheckbox = document.getElementById('is-second');
+        const thirdCheckbox = document.getElementById('is-third');
+
+        function handleSecondDetailsChange() {
+            if (secondCheckbox.checked) {
+                document.getElementById('second-details').style.pointerEvents = 'auto';
+                document.getElementById('second-details').style.visibility = 'visible';
+            } else {
+                document.getElementById('second-details').style.pointerEvents = 'none';
+                document.getElementById('second-details').style.visibility = 'hidden';
+                document.getElementById("second-name").value = "";
+                document.getElementById("second-squad").value = "";
+                document.getElementById("second-sem").value = "";
+                document.getElementById("second-point").value = "";
+            }
+        }
+        function handleThirdDetailsChange() {
+            if (thirdCheckbox.checked) {
+                document.getElementById('third-details').style.pointerEvents = 'auto';
+                document.getElementById('third-details').style.visibility = 'visible';
+            } else {
+                document.getElementById('third-details').style.pointerEvents = 'none';
+                document.getElementById('third-details').style.visibility = 'hidden';
+                document.getElementById("third-name").value = "";
+                document.getElementById("third-squad").value = "";
+                document.getElementById("third-sem").value = "";
+                document.getElementById("third-point").value = "";
+            }
+        }
+
+        secondCheckbox.addEventListener('change', handleSecondDetailsChange);
+        thirdCheckbox.addEventListener('change', handleThirdDetailsChange);
+
+
         const sumbit = () => {
             const eventName = document.getElementById("event-name").value
             const eventType = document.getElementById("event-type").value
@@ -317,41 +362,47 @@
                 alert("Semester of first is mandatory");
                 return;
             }
-            if (!firstPoint.trim() || isNaN(Number(firstPoint)) || Number(firstPoint) == 0) {
+            if (!firstPoint.trim() || isNaN(Number(firstPoint)) || Number(firstPoint) <= 0) {
                 alert("Point of first is mandatory");
                 return;
             }
-            if (!secondName.trim()) {
-                alert("Name of second is mandatory");
-                return;
+
+            if (secondCheckbox.checked) {
+                if (!secondName.trim()) {
+                    alert("Name of second is mandatory");
+                    return;
+                }
+                if (!secondSquad.trim()) {
+                    alert("Squad of second is mandatory");
+                    return;
+                }
+                if (!secondSem.trim()) {
+                    alert("Semester of second is mandatory");
+                    return;
+                }
+                if (!secondPoint.trim() || isNaN(Number(secondPoint)) || Number(secondPoint) <= 0) {
+                    alert("Point of second is mandatory");
+                    return;
+                }
             }
-            if (!secondSquad.trim()) {
-                alert("Squad of second is mandatory");
-                return;
-            }
-            if (!secondSem.trim()) {
-                alert("Semester of second is mandatory");
-                return;
-            }
-            if (!secondPoint.trim() || isNaN(Number(secondPoint)) || Number(secondPoint) == 0) {
-                alert("Point of second is mandatory");
-                return;
-            }
-            if (!thirdName.trim()) {
-                alert("Name of third is mandatory");
-                return;
-            }
-            if (!thirdSquad.trim()) {
-                alert("Squad of third is mandatory");
-                return;
-            }
-            if (!thirdSem.trim()) {
-                alert("Semester of third is mandatory");
-                return;
-            }
-            if (!thirdPoint.trim() || isNaN(Number(thirdPoint)) || Number(thirdPoint) == 0) {
-                alert("Point of third is mandatory");
-                return;
+
+            if (thirdCheckbox.checked) {
+                if (!thirdName.trim()) {
+                    alert("Name of third is mandatory");
+                    return;
+                }
+                if (!thirdSquad.trim()) {
+                    alert("Squad of third is mandatory");
+                    return;
+                }
+                if (!thirdSem.trim()) {
+                    alert("Semester of third is mandatory");
+                    return;
+                }
+                if (!thirdPoint.trim() || isNaN(Number(thirdPoint)) || Number(thirdPoint) <= 0) {
+                    alert("Point of third is mandatory");
+                    return;
+                }
             }
             const inputs = {
                 eventName,
@@ -375,7 +426,6 @@
                     point: Number(thirdPoint),
                 }
             }
-            console.log(inputs)
             fetch('/event/add-point', {
                 method: 'POST',
                 headers: {

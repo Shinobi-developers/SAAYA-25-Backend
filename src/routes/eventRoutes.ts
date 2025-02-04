@@ -39,7 +39,7 @@ router.post(
       if (!eventDetails) {
         res.status(404).send({
           status: false,
-          message: 'Enent details cannot be empty',
+          message: 'Event details cannot be empty',
         });
       }
       const existingSquad = await Squad.findOne({});
@@ -58,24 +58,36 @@ router.post(
       };
       const event = new Event(eventDetails);
       await event.save();
-      const fsd = [event.first, event.second, event.third];
+
+      const fsd = [];
+      if (event.first?.name !== '') {
+        fsd.push(event.first);
+      }
+      if (event.second?.name !== '') {
+        fsd.push(event.second);
+      }
+      if (event.third?.name !== '') {
+        fsd.push(event.third);
+      }
       fsd.map((e) => {
-        if (e?.squad == 'CSE') {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          //@ts-ignore
-          squad.CSE += e.point;
-        } else if (e?.squad == 'CE_AD') {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          //@ts-ignore
-          squad.CE_AD += e.point;
-        } else if (e?.squad == 'EEE_ECE_ME') {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          //@ts-ignore
-          squad.EEE_ECE_ME += e.point;
-        } else if (e?.squad == 'MCA_MTECH') {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          //@ts-ignore
-          squad.MCA_MTECH += e.point;
+        if (e) {
+          if (e?.squad == 'CSE') {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            squad.CSE += e.point;
+          } else if (e?.squad == 'CE_AD') {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            squad.CE_AD += e.point;
+          } else if (e?.squad == 'EEE_ECE_ME') {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            squad.EEE_ECE_ME += e.point;
+          } else if (e?.squad == 'MCA_MTECH') {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            squad.MCA_MTECH += e.point;
+          }
         }
       });
       await Squad.findOneAndUpdate(
@@ -89,7 +101,9 @@ router.post(
         status: true,
         message: 'Squad points updated successfully',
       });
-    } catch {
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e);
       res.status(500).send({
         status: false,
         message: 'Something went wrong.',
