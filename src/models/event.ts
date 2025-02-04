@@ -9,10 +9,12 @@ const participantSchema = new mongoose.Schema(
     squad: {
       type: String,
       required: true,
+      enum: ['CSE', 'CE_AD', 'EEE_ECE_ME', 'MCA_MTECH'],
     },
     sem: {
       type: String,
       required: true,
+      enum: ['S2', 'S4', 'S6', 'S8'],
     },
     point: {
       type: Number,
@@ -27,6 +29,11 @@ const eventSchema = new mongoose.Schema(
     eventName: {
       type: String,
       required: true,
+    },
+    eventType: {
+      type: String,
+      required: true,
+      enum: ['ON_STAGE', 'OFF_STAGE', 'PRE_STAGE'],
     },
     first: participantSchema,
     second: participantSchema,

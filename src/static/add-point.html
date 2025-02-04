@@ -102,6 +102,16 @@
     #msg-box {
         padding-top: 1rem;
     }
+    .event-type-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 2rem;
+        gap: 0.5rem;
+    }
+    .event-type-container label{
+        font-weight: 600;
+    }
 
     @media (max-width: 768px) {
         .add-point-header-2 p {
@@ -137,6 +147,15 @@
         <div class="event-name-container">
             <label for="">Event Name</label>
             <input type="text" id="event-name" required>
+        </div>
+        <div class="event-type-container">
+            <label for="">Event Type</label>
+            <select id="event-type">
+                <option value="">Select Event Type</option>
+                <option value="ON_STAGE">On Stage</option>
+                <option value="OFF_STAGE">Off Stage</option>
+                <option value="PRE_STAGE">Pre Stage</option>
+            </select>
         </div>
         <div class="winners-details">
             <div class="winner">
@@ -255,6 +274,8 @@
     <script>
         const sumbit = () => {
             const eventName = document.getElementById("event-name").value
+            const eventType = document.getElementById("event-type").value
+
             const firstName = document.getElementById("first-name").value
             const firstSquad = document.getElementById("first-squad").value
             const firstSem = document.getElementById("first-sem").value
@@ -279,6 +300,11 @@
                 alert("Event name is mandatory");
                 return;
             }
+            if (!eventType.trim()) {
+                alert("Event type is mandatory");
+                return;
+            }
+
             if (!firstName.trim()) {
                 alert("Name of first is mandatory");
                 return;
@@ -329,6 +355,7 @@
             }
             const inputs = {
                 eventName,
+                eventType,
                 first: {
                     name: firstName,
                     squad: firstSquad,
