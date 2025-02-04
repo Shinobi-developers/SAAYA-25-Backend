@@ -41,7 +41,10 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
   const db = mongoose.connection.db;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
-  const collection = db.collection('saaya_25_be');
+  const collectionName = process.env.USER_COLLECTION;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
+  const collection = db.collection(collectionName);
   const user = await collection.findOne({
     username,
   });

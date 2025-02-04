@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 
 const connectDb = async () => {
-  const mongoURL: string | undefined = process.env.MONGO_URL_LOCAL;
+  const mongoURL: string | undefined = process.env.MONGO_URL;
 
   if (mongoURL) {
     await mongoose
