@@ -6,6 +6,7 @@ import cors from 'cors';
 import testRoutes from './routes/testRoutes';
 import userRoutes from './routes/userRoutes';
 import eventRoutes from './routes/eventRoutes';
+import squadRoutes from './routes/squadRoutes';
 
 const app = express();
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(cors());
 app.use('/test', testRoutes);
 app.use('/user', userRoutes);
 app.use('/event', eventRoutes);
+app.use('/squad', squadRoutes);
 
 app.use((req: Request, res: Response) => {
   res.status(404).redirect('/user/page/login');
