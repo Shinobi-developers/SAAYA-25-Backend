@@ -14,6 +14,7 @@ const __dirname = path.dirname(__filename);
 router.use('/user', express.static(path.join(__dirname, '../static')));
 
 // Send login page
+// /user/page/login
 router.get('/page/login', (req: Request, res: Response): void => {
   const isAuthenticated = authenticateJWT(req);
   if (isAuthenticated) {
@@ -30,7 +31,8 @@ router.get('/page/login', (req: Request, res: Response): void => {
   });
 });
 
-//login page api
+// login page api
+// /user/login
 router.post('/login', async (req: Request, res: Response): Promise<void> => {
   const { username, password } = req.body;
   if (!username || !password || username == '' || password === '') {

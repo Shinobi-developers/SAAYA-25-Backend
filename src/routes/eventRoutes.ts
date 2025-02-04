@@ -11,7 +11,8 @@ const __filename = new URL(import.meta.url).pathname;
 const __dirname = path.dirname(__filename);
 router.use('/event', express.static(path.join(__dirname, '../static')));
 
-// Send add points page
+// Add points page
+// /event/page/add-point
 router.get('/page/add-point', (req: Request, res: Response): void => {
   const isAuthenticated = authenticateJWT(req);
   if (!isAuthenticated) {
@@ -29,6 +30,7 @@ router.get('/page/add-point', (req: Request, res: Response): void => {
 });
 
 //add points api
+// /event/add-point
 router.post(
   '/add-point',
   async (req: Request, res: Response): Promise<void> => {
@@ -96,6 +98,8 @@ router.post(
   },
 );
 
+// get all events results
+// /event/all
 router.get('/all', async (req: Request, res: Response) => {
   try {
     const events = await Event.find({});
