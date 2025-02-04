@@ -102,7 +102,38 @@ router.post(
 // /event/all
 router.get('/all', async (req: Request, res: Response) => {
   try {
-    const events = await Event.find({});
+    const filter = {};
+
+    // event type filter
+    if (req.query.eventType) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      filter.eventType = req.query.eventType;
+    }
+
+    // squad filter
+    if (req.query.squad) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      filter.$or = [
+        { 'first.squad': req.query.squad },
+        { 'second.squad': req.query.squad },
+        { 'third.squad': req.query.squad },
+      ];
+    }
+
+    // sem filter
+    if (req.query.sem) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      filter.$or = [
+        { 'first.sem': req.query.sem },
+        { 'second.sem': req.query.sem },
+        { 'third.sem': req.query.sem },
+      ];
+    }
+
+    const events = await Event.find(filter);
     res.status(200).send(events);
   } catch {
     res.status(500).send({
