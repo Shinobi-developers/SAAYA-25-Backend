@@ -9,12 +9,34 @@ const router = express.Router();
 router.get('/points', async (req: Request, res: Response) => {
   try {
     const points = await Squad.find({});
-    res.status(200).send({
-      CSE: points[0].CSE,
-      CE_AD: points[0].CE_AD,
-      EEE_ECE_ME: points[0].EEE_ECE_ME,
-      MCA_MTECH: points[0].MCA_MTECH,
-    });
+    const squads: {
+      squad: string;
+      department: string;
+      points: number;
+    }[] = [
+      {
+        squad: 'Slytherin',
+        department: 'CSE',
+        points: points[0].CSE,
+      },
+      {
+        squad: 'Gryffindor',
+        department: 'CE & AD',
+        points: points[0].CE_AD,
+      },
+      {
+        squad: 'Hufflepuff',
+        department: 'ECE, EEE & ME',
+        points: points[0].EEE_ECE_ME,
+      },
+      {
+        squad: 'Ravenclaw',
+        department: 'MCA & MTECH',
+        points: points[0].MCA_MTECH,
+      },
+    ];
+    const sortedSquads = squads.sort((a, b) => b.points - a.points);
+    res.status(200).send(sortedSquads);
   } catch {
     res.status(500).send({
       status: false,
