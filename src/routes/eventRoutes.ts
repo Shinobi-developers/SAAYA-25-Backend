@@ -147,6 +147,12 @@ router.get('/all', async (req: Request, res: Response) => {
       ];
     }
 
+    if (req.query.eventName) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      filter.eventName = { $regex: req.query.eventName, $options: 'i' };
+    }
+
     const events = await Event.find(filter);
     res.status(200).send(events);
   } catch {
