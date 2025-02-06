@@ -275,7 +275,7 @@
             </div>
         </div>
         <div class="submit-btn-container">
-            <button type="submit" onclick="sumbit()">Submit</button>
+            <button id="submit-btn" type="submit" onclick="sumbit()">Submit</button>
             <div id="msg-box"></div>
         </div>
     </div>
@@ -404,6 +404,9 @@
                     return;
                 }
             }
+
+            document.getElementById("submit-btn").disabled = true;
+
             const inputs = {
                 eventName,
                 eventType,
@@ -443,7 +446,7 @@
                 });
             setTimeout(() => {
                 location.reload();
-            }, 1000);
+            }, 2000);
         }
     </script>
 
